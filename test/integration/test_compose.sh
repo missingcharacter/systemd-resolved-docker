@@ -50,7 +50,7 @@ EOF
 
 ALLOWED_DOMAINS=.docker,.$TEST_PREFIX start_systemd_resolved_docker
 
-docker-compose --file /dev/fd/10 --project-name $TEST_PREFIX up --detach --scale webserver=2
+docker compose --file /dev/fd/10 --project-name $TEST_PREFIX up --detach --scale webserver=2
 
 broker1_ip=$(docker_ip ${TEST_PREFIX}_broker_1)
 webserver1_ip=$(docker_ip ${TEST_PREFIX}_webserver_1)
@@ -66,5 +66,5 @@ query_ok   2.webserver.$TEST_PREFIX $webserver2_ip
 
 query_ok     broker.docker $broker1_ip
 
-docker-compose --file /dev/fd/20 --project-name ${TEST_PREFIX}_2 up --detach
+docker compose --file /dev/fd/20 --project-name ${TEST_PREFIX}_2 up --detach
 query_fail   broker.docker
