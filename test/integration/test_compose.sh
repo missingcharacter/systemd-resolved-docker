@@ -3,7 +3,6 @@
 . ./functions.sh
 
 exec 10<<EOF
-version: "2.1"
 services:
   webserver:
     image: nginx
@@ -29,7 +28,6 @@ networks:
 EOF
 
 exec 20<<EOF
-version: "2.1"
 services:
   broker:
     image: redis
