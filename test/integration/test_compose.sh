@@ -50,9 +50,9 @@ ALLOWED_DOMAINS=.docker,.$TEST_PREFIX start_systemd_resolved_docker
 
 docker compose --file /dev/fd/10 --project-name $TEST_PREFIX up --detach --scale webserver=2
 
-broker1_ip=$(docker_ip ${TEST_PREFIX}_broker_1)
-webserver1_ip=$(docker_ip ${TEST_PREFIX}_webserver_1)
-webserver2_ip=$(docker_ip ${TEST_PREFIX}_webserver_2)
+broker1_ip=$(docker_ip ${TEST_PREFIX}-broker-1)
+webserver1_ip=$(docker_ip ${TEST_PREFIX}-webserver-1)
+webserver2_ip=$(docker_ip ${TEST_PREFIX}-webserver-2)
 
 query_ok     broker.$TEST_PREFIX $broker1_ip
 query_ok   1.broker.$TEST_PREFIX $broker1_ip
