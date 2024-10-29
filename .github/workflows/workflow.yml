@@ -13,7 +13,7 @@ jobs:
           sudo apt-get install -y ruby ruby-dev rubygems build-essential python3-simplejson python3-pkg-resources python3-setuptools
           sudo gem install fpm
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build package
         run: >
           fpm --input-type  python                                 \
@@ -31,7 +31,7 @@ jobs:
               --depends systemd                                    \
               setup.py
       - name: Save artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: DEB package (Ubuntu 20.04)
           path: |
@@ -47,7 +47,7 @@ jobs:
           sudo apt-get install -y ruby ruby-dev rubygems build-essential python3-simplejson python3-pkg-resources python3-setuptools
           sudo gem install fpm
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build package
         run: >
           fpm --input-type  python                                 \
@@ -64,7 +64,7 @@ jobs:
               --depends systemd                                    \
               setup.py
       - name: Save artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: DEB package (Ubuntu 22.04)
           path: |
@@ -80,7 +80,7 @@ jobs:
           sudo apt-get install -y ruby ruby-dev rubygems build-essential python3-simplejson python3-pkg-resources python3-setuptools
           sudo gem install fpm
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build package
         run: >
           fpm --input-type  python                                 \
@@ -97,7 +97,7 @@ jobs:
               --depends systemd                                    \
               setup.py
       - name: Save artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: DEB package (Ubuntu 24.04)
           path: |
@@ -112,7 +112,7 @@ jobs:
       - name: Install tito
         run: dnf install -y tito python3-devel
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: List contents
@@ -120,7 +120,7 @@ jobs:
       - name: Build package
         run: tito build --rpm --offline --test
       - name: Save artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: RPM package
           path: |
@@ -128,10 +128,10 @@ jobs:
 
   tests:
     name: Run tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install packages
         run: |
           sudo apt-get update
@@ -146,7 +146,7 @@ jobs:
       - build-deb-20-04
     steps:
       - name: Download DEB package
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v4
         with:
           name: DEB package (Ubuntu 20.04)
           path: /tmp
@@ -168,7 +168,7 @@ jobs:
       - build-deb-22-04
     steps:
       - name: Download DEB package
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v4
         with:
           name: DEB package (Ubuntu 22.04)
           path: /tmp
@@ -190,7 +190,7 @@ jobs:
       - build-deb-24-04
     steps:
       - name: Download DEB package
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v4
         with:
           name: DEB package (Ubuntu 24.04)
           path: /tmp
@@ -217,7 +217,7 @@ jobs:
       - test-deb-24-04
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: all-artifacts
       - name: Rename Ubuntu deb packages
@@ -236,7 +236,7 @@ jobs:
           mv "${FILENAME_20_04}" "${FILENAME_20_04/_all/_20.04_all}"
           cd - || exit 1
       - name: Upload artifacts
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             all-artifacts/*/*.deb
